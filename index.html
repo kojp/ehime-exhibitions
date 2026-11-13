@@ -7,7 +7,7 @@
 <link rel="icon" href="data:," />
 <title>愛媛の展覧会リスト</title>
 <meta property="og:title" content="愛媛の展覧会リスト" />
-<meta property="og:description" content="愛媛県内の展覧会を、閲覧した日の日付で「開催中」「まもなく開始（7日以内）」「今後の予定」に振り分けて表示する一覧です。データ更新：2026年11月9日。" />
+<meta property="og:description" content="愛媛県内の展覧会を、閲覧した日の日付で「開催中」「まもなく開始（7日以内）」に振り分けて表示する一覧です。データ更新：2026年11月9日。" />
 <meta name="twitter:title" content="愛媛の展覧会リスト" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,10 +40,10 @@
   header{padding:44px 0 8px}
   h1{font-family:"Noto Serif JP",serif;font-weight:900;font-size:clamp(30px,6vw,52px);line-height:1.25;margin:0 0 6px;letter-spacing:.02em}
   h1 .thin{font-weight:600;color:var(--ink2)}
-  .lede{color:var(--ink2);font-size:15.5px;margin:8px 0 0}
+  .lede{color:var(--aka);font-size:15.5px;margin:8px 0 0}
   .meta-row{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
   .meta-row b{color:var(--ink)}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
   .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
   .stat .num{font-family:"Noto Serif JP",serif;font-size:30px;font-weight:900;line-height:1.1}
   .stat .num small{font-size:15px;font-weight:700;color:var(--ink2)}
@@ -150,7 +150,7 @@
 
   <header>
     <h1>愛媛の展覧会リスト<br><span class="thin">今日開催中＆これから始まる展覧会</span></h1>
-    <p class="lede">愛媛県内の美術館・ギャラリーのウェブサイト66件と、展覧会情報サイト2件から情報を読み取って一覧化しています。</p>
+    <p class="lede">愛媛県内の美術館・ギャラリーのウェブサイト66件と、展覧会情報サイト2件から企画展の情報を読み取って一覧化しています。<br>地域や開催時期で絞り込むことができます。</p>
     <div class="meta-row">
       <span>データ更新：<b>2026年11月9日（月）</b></span>
       <span>閲覧日：<b id="metaToday">―</b></span>
@@ -160,7 +160,6 @@
       <div class="stat"><div class="num" id="statTotal">–</div><div class="lbl">掲載展覧会（終了分を除く）</div></div>
       <div class="stat hot"><div class="num" id="statLive">–</div><div class="lbl">今日開催中</div></div>
       <div class="stat"><div class="num" id="statSoon">–</div><div class="lbl">7日以内に開幕</div></div>
-      <div class="stat"><div class="num" id="statFuture">–</div><div class="lbl">今後の予定</div></div>
     </div>
     <div class="highlights">
       <h2>この週の見どころ（11月9日のデータ更新時点）</h2>
@@ -184,9 +183,7 @@
       <div class="seg" id="statusSeg" role="group" aria-label="状態で絞り込み">
         <button type="button" data-status="all" aria-pressed="true">すべて</button>
         <button type="button" data-status="live" aria-pressed="false">開催中</button>
-        <button type="button" data-status="ending" aria-pressed="false">まもなく終了</button>
         <button type="button" data-status="soon" aria-pressed="false">まもなく開始</button>
-        <button type="button" data-status="future" aria-pressed="false">今後の予定</button>
       </div>
     </div>
     <div class="chips" id="areaChips" role="group" aria-label="地域で絞り込み">
@@ -205,7 +202,7 @@
     <summary>調査メモ・注意点<span class="chev" aria-hidden="true">▾</span></summary>
     <div class="notes-body">
     <h3>掲載ルール</h3>
-    <p>「開催中」かどうかは、ページのデータ更新日ではなく、<b>閲覧した日の日付</b>で自動的に判定しています。表示は次の3区分です。①閲覧日に開催中の展覧会、②閲覧日から7日以内に始まる展覧会（まもなく開始）、③それより後に始まる展覧会（今後の予定）。終了日を過ぎた展覧会は表示されません。各グループ内は開始日が早い順に並べています。データ自体は毎週月曜日に更新され、今回のデータ更新日は2026年11月9日です（調査は11月13日に実施）。データ更新日より前に終了した展覧会（ジミー大西「ホームタウン」愛媛展、本の轍の杉本さなえ展、第75回秋季県展の後期など、11月8日までに終了したもの）は掲載していません。開始日が確認できなかった4件は「開催中」の末尾にまとめていますが、終了日が分かっているもの（佐伯記念館の「第9回 墨・和紙・竹と戯れて」、11月11日まで）は、その日を過ぎると表示されなくなります。</p>
+    <p>「開催中」かどうかは、ページのデータ更新日ではなく、<b>閲覧した日の日付</b>で自動的に判定しています。表示は「開催中」と「まもなく開始（閲覧日から7日以内に始まる展覧会）」の2つの見出しで区分し、それより後に始まる展覧会は見出しなしで開始日順に続けています。終了日を過ぎた展覧会は表示されません。各グループ内は開始日が早い順に並べています。データ自体は毎週月曜日に更新され、今回のデータ更新日は2026年11月9日です（調査は11月13日に実施）。データ更新日より前に終了した展覧会（ジミー大西「ホームタウン」愛媛展、本の轍の杉本さなえ展、第75回秋季県展の後期など、11月8日までに終了したもの）は掲載していません。開始日が確認できなかった4件は「開催中」の末尾にまとめていますが、終了日が分かっているもの（佐伯記念館の「第9回 墨・和紙・竹と戯れて」、11月11日まで）は、その日を過ぎると表示されなくなります。</p>
     <h3>追加した情報源（2026年11月13日）</h3>
     <p>66サイトに加え、次の2件を情報源として追加し、今回分から照合しました。</p>
     <ul>
@@ -236,7 +233,7 @@
   </details>
 
   <footer class="page">
-    出典：各施設の公式サイト、ならびにアートマップ テクポ（tekupo.com）とTokyo Art Beatの愛媛県ページ（各カードのリンク先）。データ更新日は2026年11月9日（月）で、「開催中／まもなく開始／今後の予定」の振り分けは閲覧した日の日付で自動判定しています。会期表記は各サイトの表記をもとに西暦で統一し、概要は各サイトの掲載内容に基づきます。常設展示のみの案内は除いています。
+    出典：各施設の公式サイト、ならびにアートマップ テクポ（tekupo.com）とTokyo Art Beatの愛媛県ページ（各カードのリンク先）。データ更新日は2026年11月9日（月）で、「開催中／まもなく開始」の振り分けは閲覧した日の日付で自動判定しています。会期表記は各サイトの表記をもとに西暦で統一し、概要は各サイトの掲載内容に基づきます。常設展示のみの案内は除いています。
   </footer>
 </div>
 
@@ -314,7 +311,7 @@ function statusOf(x){
   if(x.s){
     if(TODAY < x.s){
       if(x.s<=SOON_END) return {k:"soon",label:"まもなく開始",cls:"b-soon"};
-      return {k:"future",label:"今後の予定",cls:"b-up"};
+      return {k:"future",label:"開始予定",cls:"b-up"};
     }
     if(TODAY > x.e) return {k:"ended",label:"終了",cls:"b-end"};
     var r = days(TODAY,x.e);
@@ -372,9 +369,7 @@ function render(){
     if(fArea!=="all" && x.a!==fArea) return false;
     var st=statusOf(x);
     if(fStatus==="live" && st.k!=="live") return false;
-    if(fStatus==="ending" && !(st.k==="live"&&st.ending)) return false;
     if(fStatus==="soon" && st.k!=="soon") return false;
-    if(fStatus==="future" && st.k!=="future") return false;
     if(q){ var hay=(x.t+" "+x.v+" "+x.c+" "+x.d).toLowerCase(); if(hay.indexOf(q)===-1) return false; }
     return true;
   }
@@ -402,17 +397,15 @@ function render(){
     html+=dateGroups(soonItems);
   }
   if(futureItems.length){
-    html+='<div class="sec-head'+(html?"":" first")+'"><h2>今後の予定</h2><span class="sec-sub">'+fmtDateShort(addDays(TODAY,8))+'以降に開始 ・ 開始日順</span><span class="sec-cnt">'+futureItems.length+'件</span></div>';
     html+=dateGroups(futureItems);
   }
   document.getElementById("list").innerHTML=html;
   document.getElementById("empty").className="empty"+(shown===0?" show":"");
-  document.getElementById("resultLine").innerHTML="<b>"+shown+"件</b> を表示中（"+fmtDateShort(TODAY)+"時点の表示対象 "+totalAll+"件：開催中"+totalLive+"件＋まもなく開始"+soonAll.length+"件＋今後の予定"+futureAll.length+"件。終了した展覧会は表示されません）";
+  document.getElementById("resultLine").innerHTML="<b>"+shown+"件</b> を表示中（"+fmtDateShort(TODAY)+"時点の表示対象 "+totalAll+"件：開催中"+totalLive+"件＋まもなく開始"+soonAll.length+"件＋それ以降に始まるもの"+futureAll.length+"件。終了した展覧会は表示されません）";
   document.getElementById("filterToggle").classList.toggle("has-active", fStatus!=="all"||fArea!=="all");
   document.getElementById("statTotal").innerHTML=totalAll+"<small> 件</small>";
   document.getElementById("statLive").innerHTML=totalLive+"<small> 件</small>";
   document.getElementById("statSoon").innerHTML=soonAll.length+"<small> 件</small>";
-  document.getElementById("statFuture").innerHTML=futureAll.length+"<small> 件</small>";
 }
 document.getElementById("q").addEventListener("input",render);
 var toolbarEl=document.querySelector(".toolbar");
