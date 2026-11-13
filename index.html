@@ -38,12 +38,9 @@
 
   /* ---------- header ---------- */
   header{padding:44px 0 8px}
-  .kicker{display:flex;align-items:center;gap:12px;color:var(--aka);font-weight:700;font-size:12.5px;letter-spacing:.14em}
-  .kicker::after{content:"";flex:1;height:1px;background:var(--line2)}
-  h1{font-family:"Noto Serif JP",serif;font-weight:900;font-size:clamp(30px,6vw,52px);line-height:1.25;margin:14px 0 6px;letter-spacing:.02em}
+  h1{font-family:"Noto Serif JP",serif;font-weight:900;font-size:clamp(30px,6vw,52px);line-height:1.25;margin:0 0 6px;letter-spacing:.02em}
   h1 .thin{font-weight:600;color:var(--ink2)}
   .lede{color:var(--ink2);font-size:15.5px;margin:8px 0 0}
-  .today-note{margin:12px 0 0;font-size:13.5px;font-weight:700;color:var(--aka)}
   .meta-row{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
   .meta-row b{color:var(--ink)}
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
@@ -134,7 +131,13 @@
 
   /* ---------- notes ---------- */
   .notes{margin-top:48px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow)}
-  .notes h2{font-family:"Noto Serif JP",serif;font-size:19px;margin:0 0 10px}
+  .notes summary{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:"Noto Serif JP",serif;font-size:19px;font-weight:700;color:var(--ink);cursor:pointer;list-style:none;min-height:44px;-webkit-tap-highlight-color:transparent}
+  .notes summary::-webkit-details-marker{display:none}
+  .notes summary .chev{font-size:13px;color:var(--aka);transition:transform .2s;flex-shrink:0}
+  .notes[open ] summary .chev{transform:rotate(180deg)}
+  .notes summary:focus-visible{outline:2px solid var(--aka);outline-offset:4px;border-radius:4px}
+  .notes .notes-body{margin-top:6px}
+  @media (prefers-reduced-motion: reduce){.notes summary .chev{transition:none}}
   .notes h3{font-size:14.5px;margin:18px 0 6px}
   .notes p,.notes li{font-size:13.8px;color:var(--ink2)}
   .notes ul{padding-left:1.25em;margin:6px 0}
@@ -146,14 +149,11 @@
 <div class="wrap">
 
   <header>
-    <div class="kicker">愛媛の展覧会情報 ・ データ更新：2026年11月9日</div>
     <h1>愛媛の展覧会リスト<br><span class="thin">今日開催中＆これから始まる展覧会</span></h1>
-    <p class="lede">愛媛県内の美術館・ギャラリーのウェブサイト66件と、展覧会情報サイト2件から情報を読み取って一覧化しています。<br>このページは毎週月曜日の午前7時に更新されます。</p>
-    <p class="today-note" id="todayNote"></p>
+    <p class="lede">愛媛県内の美術館・ギャラリーのウェブサイト66件と、展覧会情報サイト2件から情報を読み取って一覧化しています。</p>
     <div class="meta-row">
       <span>データ更新：<b>2026年11月9日（月）</b></span>
       <span>閲覧日：<b id="metaToday">―</b></span>
-      <span>調査日：<b>2026年11月13日（金）</b></span>
       <span>対象：<b>66サイト＋情報サイト2件</b></span>
     </div>
     <div class="stats">
@@ -201,8 +201,9 @@
   <main id="list"></main>
   <div class="empty" id="empty">条件に合う展覧会がありません。検索語や絞り込みを変えてみてください。</div>
 
-  <section class="notes">
-    <h2>調査メモ・注意点</h2>
+  <details class="notes">
+    <summary>調査メモ・注意点<span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="notes-body">
     <h3>掲載ルール</h3>
     <p>「開催中」かどうかは、ページのデータ更新日ではなく、<b>閲覧した日の日付</b>で自動的に判定しています。表示は次の3区分です。①閲覧日に開催中の展覧会、②閲覧日から7日以内に始まる展覧会（まもなく開始）、③それより後に始まる展覧会（今後の予定）。終了日を過ぎた展覧会は表示されません。各グループ内は開始日が早い順に並べています。データ自体は毎週月曜日に更新され、今回のデータ更新日は2026年11月9日です（調査は11月13日に実施）。データ更新日より前に終了した展覧会（ジミー大西「ホームタウン」愛媛展、本の轍の杉本さなえ展、第75回秋季県展の後期など、11月8日までに終了したもの）は掲載していません。開始日が確認できなかった4件は「開催中」の末尾にまとめていますが、終了日が分かっているもの（佐伯記念館の「第9回 墨・和紙・竹と戯れて」、11月11日まで）は、その日を過ぎると表示されなくなります。</p>
     <h3>追加した情報源（2026年11月13日）</h3>
@@ -231,10 +232,11 @@
     <h3>サイト側の問題で確認できなかった施設</h3>
     <p>ギャラリーラボ（取得できた内容が古く、11月分は未確認）。</p>
     <p>会期・休館日・料金は変更される場合があります。出かける前に各施設の公式サイトで最新情報をご確認ください。</p>
-  </section>
+    </div>
+  </details>
 
   <footer class="page">
-    出典：各施設の公式サイト、ならびにアートマップ テクポ（tekupo.com）とTokyo Art Beatの愛媛県ページ（各カードのリンク先）。調査日 2026年11月13日（同日に上記2情報源を追加して照合）。データ更新日は2026年11月9日（月）で、「開催中／まもなく開始／今後の予定」の振り分けは閲覧した日の日付で自動判定しています。会期表記は各サイトの表記をもとに西暦で統一し、概要は各サイトの掲載内容に基づきます。常設展示のみの案内は除いています。
+    出典：各施設の公式サイト、ならびにアートマップ テクポ（tekupo.com）とTokyo Art Beatの愛媛県ページ（各カードのリンク先）。データ更新日は2026年11月9日（月）で、「開催中／まもなく開始／今後の予定」の振り分けは閲覧した日の日付で自動判定しています。会期表記は各サイトの表記をもとに西暦で統一し、概要は各サイトの掲載内容に基づきます。常設展示のみの案内は除いています。
   </footer>
 </div>
 
@@ -439,7 +441,6 @@ document.getElementById("areaChips").addEventListener("click",function(e){
   var d=new Date(TODAY+"T00:00:00");
   var label=fmtDate(TODAY)+"（"+DOW[d.getDay()]+"）";
   document.getElementById("metaToday").textContent=label;
-  document.getElementById("todayNote").textContent="今日は"+label+"です。「開催中」はデータ更新日ではなく、閲覧した日の日付で判定しています。終了した展覧会は自動で表示されなくなります。";
 })();
 render();
 </script>
