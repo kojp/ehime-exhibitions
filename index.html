@@ -43,7 +43,7 @@
   .lede{color:var(--aka);font-size:15.5px;margin:8px 0 0}
   .meta-row{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
   .meta-row b{color:var(--ink)}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
   .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
   .stat .num{font-family:"Noto Serif JP",serif;font-size:30px;font-weight:900;line-height:1.1}
   .stat .num small{font-size:15px;font-weight:700;color:var(--ink2)}
@@ -150,7 +150,7 @@
 
   <header>
     <h1>愛媛の展覧会リスト<br><span class="thin">今日開催中＆これから始まる展覧会</span></h1>
-    <p class="lede">愛媛県内の美術館・ギャラリーのウェブサイト66件と、展覧会情報サイト2件から企画展の情報を読み取って一覧化しています。<br>地域や開催時期で絞り込むことができます。<br><span style="color:var(--ink)">管理人にご用の際は<a href="https://docs.google.com/forms/d/e/1FAIpQLSeu-hs7aPTlfd6j__p7BQxXvLUNnB_FZWspX0e99Ri16iFMUw/viewform">こちら</a>からメッセージをお送りください。</span></p>
+    <p class="lede">愛媛県内の美術館・ギャラリーのウェブサイト66件と、展覧会情報サイト2件から企画展の情報を読み取って一覧化しています。<br>地域や開催時期で絞り込むことができます。<br><span style="color:var(--ink)">管理人にご用の際は<a href="https://docs.google.com/forms/d/e/1FAIpQLSeu-hs7aPTlfd6j__p7BQxXvLUNnB_FZWspX0e99Ri16iFMUw/viewform" target="_blank" rel="noopener">こちら</a>からメッセージをお送りください。</span></p>
     <div class="meta-row">
       <span>データ更新：<b>2026年11月9日（月）</b></span>
       <span>閲覧日：<b id="metaToday">―</b></span>
@@ -160,6 +160,7 @@
       <div class="stat"><div class="num" id="statTotal">–</div><div class="lbl">掲載展覧会（終了分を除く）</div></div>
       <div class="stat hot"><div class="num" id="statLive">–</div><div class="lbl">今日開催中</div></div>
       <div class="stat"><div class="num" id="statSoon">–</div><div class="lbl">7日以内に開幕</div></div>
+      <div class="stat"><div class="num" id="statEnding">–</div><div class="lbl">まもなく終了</div></div>
     </div>
     <div class="highlights">
       <h2>この週の見どころ（11月9日のデータ更新時点）</h2>
@@ -381,6 +382,8 @@ function render(){
     return true;
   }
   var liveAll=DATA.filter(function(x){return statusOf(x).k==="live";});
+  var endingAll=DATA.filter(function(x){var st=statusOf(x);return st.k==="live"&&st.ending;}).length
+    +UNKNOWN.filter(function(x){var st=statusOf(x);return st.k==="live"&&st.ending;}).length;
   var soonAll=DATA.filter(function(x){return statusOf(x).k==="soon";});
   var futureAll=DATA.filter(function(x){return statusOf(x).k==="future";});
   var uAll=UNKNOWN.filter(function(x){return statusOf(x).k==="live";});
@@ -413,6 +416,7 @@ function render(){
   document.getElementById("statTotal").innerHTML=totalAll+"<small> 件</small>";
   document.getElementById("statLive").innerHTML=totalLive+"<small> 件</small>";
   document.getElementById("statSoon").innerHTML=soonAll.length+"<small> 件</small>";
+  document.getElementById("statEnding").innerHTML=endingAll+"<small> 件</small>";
 }
 document.getElementById("q").addEventListener("input",render);
 var toolbarEl=document.querySelector(".toolbar");
