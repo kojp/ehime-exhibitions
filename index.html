@@ -184,6 +184,7 @@
         <button type="button" data-status="all" aria-pressed="true">すべて</button>
         <button type="button" data-status="live" aria-pressed="false">開催中</button>
         <button type="button" data-status="soon" aria-pressed="false">まもなく開始</button>
+        <button type="button" data-status="ending" aria-pressed="false">まもなく終了</button>
       </div>
     </div>
     <div class="chips" id="areaChips" role="group" aria-label="地域で絞り込み">
@@ -320,6 +321,11 @@ function statusOf(x){
     return {k:"live",label:"開催中",cls:"b-live",remain:r};
   }
   if(x.e && TODAY > x.e) return {k:"ended",label:"終了",cls:"b-end"};
+  if(x.e){
+    var r2 = days(TODAY,x.e);
+    if(r2<=7) return {k:"live",label:"開催中",cls:"b-soon",remain:r2,ending:true};
+    return {k:"live",label:"開催中",cls:"b-live",remain:r2};
+  }
   return {k:"live",label:"開催中",cls:"b-live"};
 }
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
@@ -370,6 +376,7 @@ function render(){
     var st=statusOf(x);
     if(fStatus==="live" && st.k!=="live") return false;
     if(fStatus==="soon" && st.k!=="soon") return false;
+    if(fStatus==="ending" && !(st.k==="live" && st.ending)) return false;
     if(q){ var hay=(x.t+" "+x.v+" "+x.c+" "+x.d).toLowerCase(); if(hay.indexOf(q)===-1) return false; }
     return true;
   }
