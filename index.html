@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>愛媛の展覧会リスト</title>
+<meta property="og:title" content="愛媛の展覧会リスト" />
+<meta property="og:description" content="2026年11月16日（月）時点で開催中の展覧会と、11月23日までに始まる展覧会を、開始日が早い順にまとめた一覧です。" />
+<meta name="twitter:title" content="愛媛の展覧会リスト" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f3ec; --paper2:#fffdf8; --ink:#211d18; --ink2:#5c564c; --ink3:#8a8378;
+    --line:#ddd3c2; --line2:#c9bda3;
+    --aka:#a83226; --aka-soft:#f3e0da; --ai:#2f4a67; --ai-soft:#dde5ec;
+    --gold:#8a6d2f; --gold-soft:#efe6cc; --green:#3d6b4f; --green-soft:#dde8de;
+    --card:#fffdf8; --shadow:0 1px 2px rgba(60,45,20,.06),0 8px 24px rgba(60,45,20,.05);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#171512; --paper2:#201d19; --ink:#ece7dd; --ink2:#b8b1a4; --ink3:#8d867b;
+      --line:#37322b; --line2:#4a443a;
+      --aka:#e0786a; --aka-soft:#3a2320; --ai:#8fb0d1; --ai-soft:#24313f;
+      --gold:#d3b26a; --gold-soft:#332c1c; --green:#8fc09e; --green-soft:#223128;
+      --card:#201d19; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  a{color:var(--ai)}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+
+  /* ---------- header ---------- */
+  header{padding:44px 0 8px}
+  .kicker{display:flex;align-items:center;gap:12px;color:var(--aka);font-weight:700;font-size:12.5px;letter-spacing:.14em}
+  .kicker::after{content:"";flex:1;height:1px;background:var(--line2)}
+  h1{font-family:"Noto Serif JP",serif;font-weight:900;font-size:clamp(30px,6vw,52px);line-height:1.25;margin:14px 0 6px;letter-spacing:.02em}
+  h1 .thin{font-weight:600;color:var(--ink2)}
+  .lede{color:var(--ink2);font-size:15.5px;margin:8px 0 0}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+  .meta-row b{color:var(--ink)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+  .stat .num{font-family:"Noto Serif JP",serif;font-size:30px;font-weight:900;line-height:1.1}
+  .stat .num small{font-size:15px;font-weight:700;color:var(--ink2)}
+  .stat .lbl{font-size:12.5px;color:var(--ink2);margin-top:2px}
+  .stat.hot .num{color:var(--aka)}
+  @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  .highlights{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+  .highlights h2{font-family:"Noto Serif JP",serif;font-size:17px;margin:0 0 8px}
+  .highlights ul{margin:0;padding-left:1.2em;color:var(--ink2);font-size:14px}
+  .highlights li{margin:4px 0}
+  .highlights b{color:var(--ink)}
+
+  /* ---------- toolbar ---------- */
+  .toolbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);padding:14px 0 12px;margin-top:26px;border-bottom:1px solid var(--line)}
+  .toolbar .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .search{flex:1 1 220px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line2);border-radius:999px;padding:0 16px;min-height:44px}
+  .search input{border:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;width:100%;outline:none;min-height:42px}
+  .seg{display:flex;background:var(--card);border:1px solid var(--line2);border-radius:999px;padding:3px;gap:2px;flex-wrap:wrap}
+  .seg button{border:0;background:transparent;color:var(--ink2);font:inherit;font-size:13.5px;font-weight:500;padding:8px 14px;border-radius:999px;cursor:pointer;min-height:38px;white-space:nowrap}
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .chip{border:1px solid var(--line2);background:var(--card);color:var(--ink2);font:inherit;font-size:13px;padding:7px 13px;border-radius:999px;cursor:pointer;min-height:36px}
+  .chip[aria-pressed="true"]{background:var(--aka);border-color:var(--aka);color:#fff}
+  @media (prefers-color-scheme: dark){.chip[aria-pressed="true"]{color:#1c1210}}
+  .result-line{margin-top:10px;font-size:13px;color:var(--ink3)}
+  .result-line b{color:var(--ink)}
+  .filter-toggle{display:none}
+  /* スマホ：絞り込みは折りたたみ、スティッキーに残るのは検索行だけにする */
+  @media (max-width:760px){
+    .toolbar{padding:10px 0}
+    .search{flex:1 1 130px}
+    .filter-toggle{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line2);color:var(--ink);font:inherit;font-size:13.5px;font-weight:700;padding:0 14px;border-radius:999px;cursor:pointer;min-height:44px;white-space:nowrap;flex-shrink:0}
+    .filter-toggle .chev{font-size:11px;transition:transform .2s}
+    .filter-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+    .filter-toggle.has-active{background:var(--aka);border-color:var(--aka);color:#fff}
+    .toolbar .seg,.toolbar .chips{display:none}
+    .toolbar.filters-open .seg{display:flex}
+    .toolbar.filters-open .chips{display:flex}
+    .result-line{margin-top:8px}
+  }
+  @media (max-width:760px) and (prefers-color-scheme: dark){.filter-toggle.has-active{color:#1c1210}}
+  @media (prefers-reduced-motion: reduce){.filter-toggle .chev{transition:none}}
+
+  /* ---------- timeline ---------- */
+  .group{margin-top:34px}
+  .group-head{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
+  .group-head .date{font-family:"Noto Serif JP",serif;font-weight:900;font-size:21px;white-space:nowrap}
+  .group-head .date .dow{font-size:13px;color:var(--aka);font-weight:700;margin-left:4px}
+  .group-head .rule{flex:1;height:1px;background:var(--line2);align-self:center}
+  .group-head .cnt{font-size:12.5px;color:var(--ink3);white-space:nowrap}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:760px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+  .card.ended{opacity:.62}
+  .card .top{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .badge{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.03em;white-space:nowrap}
+  .b-live{background:var(--green-soft);color:var(--green)}
+  .b-soon{background:var(--aka-soft);color:var(--aka)}
+  .b-up{background:var(--ai-soft);color:var(--ai)}
+  .b-end{background:var(--line);color:var(--ink2)}
+  .b-today{background:var(--gold-soft);color:var(--gold)}
+  .area{font-size:11.5px;color:var(--ink3);font-weight:500}
+  .card h3{font-family:"Noto Serif JP",serif;font-size:17.5px;font-weight:700;line-height:1.55;margin:0}
+  .venue{font-size:13.5px;color:var(--ink2)}
+  .venue b{color:var(--ink);font-weight:700}
+  .period{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .period .remain{font-size:12px;font-weight:700;color:var(--aka)}
+  .period .remain.ok{color:var(--ink3)}
+  .desc{font-size:13.8px;color:var(--ink2);margin:0;flex:1}
+  .note{font-size:12.5px;color:var(--gold);background:var(--gold-soft);border-radius:8px;padding:7px 10px}
+  .card footer{border-top:1px dashed var(--line);padding-top:10px;margin-top:2px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .src{font-size:12px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+  .btn{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:13.5px;font-weight:700;padding:10px 16px;border-radius:999px;min-height:40px;white-space:nowrap;flex-shrink:0}
+  .btn:hover{opacity:.85}
+  .btn .arr{font-size:12px}
+
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin:42px 0 2px;padding-bottom:10px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+  .sec-head.first{margin-top:28px}
+  .sec-head h2{font-family:"Noto Serif JP",serif;font-size:23px;font-weight:900;margin:0}
+  .sec-head .sec-sub{font-size:13px;color:var(--ink2);font-weight:500}
+  .sec-head .sec-cnt{margin-left:auto;font-size:13px;color:var(--ink3);white-space:nowrap}
+  .empty{display:none;text-align:center;color:var(--ink2);padding:48px 16px;border:1px dashed var(--line2);border-radius:var(--radius);margin-top:28px}
+  .empty.show{display:block}
+
+  /* ---------- notes ---------- */
+  .notes{margin-top:48px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow)}
+  .notes h2{font-family:"Noto Serif JP",serif;font-size:19px;margin:0 0 10px}
+  .notes h3{font-size:14.5px;margin:18px 0 6px}
+  .notes p,.notes li{font-size:13.8px;color:var(--ink2)}
+  .notes ul{padding-left:1.25em;margin:6px 0}
+  footer.page{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3)}
+  @media print{.toolbar{display:none}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">愛媛の展覧会情報 ・ 2026年11月16日（月）時点</div>
+    <h1>愛媛の展覧会リスト<br><span class="thin">11月16日（月）時点で開催中＆1週間以内に開幕する展覧会</span></h1>
+    <p class="lede">愛媛県内の美術館・ギャラリーのウェブサイト66件と、展覧会情報サイト2件から情報を読み取って一覧化しています。<br>このページは毎週月曜日の午前7時に更新されます。</p>
+    <div class="meta-row">
+      <span>基準日：<b>2026年11月16日（月）</b></span>
+      <span>開幕予定の対象：<b>11月17日〜23日に開始</b></span>
+      <span>調査日：<b>2026年11月13日（金）</b></span>
+      <span>対象：<b>66サイト＋情報サイト2件</b></span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">47<small> 件</small></div><div class="lbl">掲載展覧会（合計）</div></div>
+      <div class="stat hot"><div class="num" id="statLive">–</div><div class="lbl">11月16日時点で開催中</div></div>
+      <div class="stat"><div class="num">11<small> 件</small></div><div class="lbl">11月17日〜23日に開幕</div></div>
+      <div class="stat hot"><div class="num" id="statEnding">–</div><div class="lbl">開催中で11月23日までに終了</div></div>
+    </div>
+    <div class="highlights">
+      <h2>この週の見どころ</h2>
+      <ul>
+        <li><b>11月21日（土）開幕</b>：愛媛県美術館で「Mozuミニチュア展2」が始まります。今週開幕する11件の中で最注目。同館の貸しギャラリーでは一先会かな書展と光風会愛媛絵画展も同日スタート。</li>
+        <li><b>11月18日（水）・19日（木）開幕</b>：須山楓写真展、西条市の子どもの書道展、合田史彦作品展、創作アップリケ展に、テクポで見つけた伊予市の「いよ美術会展」も加わって相次いで始まります。20日（金）には片平和夫油彩展、22日（日）には愛媛民藝館の干支飾り展と現美展小作品展も。</li>
+        <li><b>情報源の追加で新たに判明した開催中</b>：道後温泉本館の「蜷川実花 with EiM × 道後温泉 DOGO ART」（Tokyo Art Beat）、畦地梅太郎記念美術館の「高橋基 木版画展」、松山の「利藤大貴版画展」、河野美術館の館蔵品名品展（後ろ3件はテクポ）の4件を開催中に追加しました。なお「高橋基 木版画展」のリンク先は、公式サイトの2026年度年間スケジュールに差し替えています。</li>
+        <li><b>11月23日（月・祝）までに終了が10件</b>：歴史文化博物館の特別展「伊予松山城」など3展、県展の新居浜・今治移動展、風の博物館の彫刻展、大場咲子展ほか。今週中に行くならここから計画を。</li>
+        <li>開催中で最長会期はギャラリーしろかわの<b>「かまぼこ板の絵」展</b>（応募作6,552点全点展示、2027年1月11日まで）。</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="toolbar" role="search">
+    <div class="row">
+      <label class="search">
+        <span aria-hidden="true">⌕</span>
+        <input id="q" type="search" placeholder="展覧会名・施設名・キーワードで検索" aria-label="検索">
+      </label>
+      <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="statusSeg areaChips">絞り込み<span class="chev" aria-hidden="true">▾</span></button>
+      <div class="seg" id="statusSeg" role="group" aria-label="状態で絞り込み">
+        <button type="button" data-status="all" aria-pressed="true">すべて</button>
+        <button type="button" data-status="live" aria-pressed="false">開催中</button>
+        <button type="button" data-status="ending" aria-pressed="false">まもなく終了</button>
+        <button type="button" data-status="upcoming" aria-pressed="false">これから開幕</button>
+      </div>
+    </div>
+    <div class="chips" id="areaChips" role="group" aria-label="地域で絞り込み">
+      <button type="button" class="chip" data-area="all" aria-pressed="true">全地域</button>
+      <button type="button" class="chip" data-area="中予" aria-pressed="false">中予（松山・東温など）</button>
+      <button type="button" class="chip" data-area="東予" aria-pressed="false">東予（今治・新居浜・西条など）</button>
+      <button type="button" class="chip" data-area="南予" aria-pressed="false">南予（宇和島・大洲・西予など）</button>
+    </div>
+    <div class="result-line" id="resultLine"></div>
+  </div>
+
+  <main id="list"></main>
+  <div class="empty" id="empty">条件に合う展覧会がありません。検索語や絞り込みを変えてみてください。</div>
+
+  <section class="notes">
+    <h2>調査メモ・注意点</h2>
+    <h3>掲載ルール</h3>
+    <p>掲載は次の2種類のみです。①基準日（2026年11月16日・月）の時点で開催中の展覧会、②基準日から1週間以内（11月23日まで）に始まる展覧会。各グループ内は開始日が早い順に並べています。11月24日以降に始まる展覧会（リアリズムフォト愛媛交友会写真展、宮川淳一郎展、書神会新居浜支部書道展、monSakata展、スギウラ工房展の5件）は次回の基準日版で扱います。基準日より前に終了した展覧会も掲載していません。</p>
+    <h3>追加した情報源（2026年11月13日）</h3>
+    <p>66サイトに加え、次の2件を情報源として追加し、今回分から照合しました。</p>
+    <ul>
+      <li><a href="https://tekupo.com/" target="_blank" rel="noopener"><b>アートマップ テクポ</b>（tekupo.com）</a>：愛媛県内の作品展・ギャラリー情報を集めたサイト。ここから新規に6件を掲載しました（開催中：高橋基 木版画展、利藤大貴版画展、今治市河野美術館 館蔵品名品展／今週開幕：第4回 いよ美術会展、片平和夫油彩展、現美展 小作品展）。このうち畦地梅太郎記念美術館の「高橋基 木版画展」は、当初こちらで確認したものですが、カードのリンク先は公式サイトの2026年度年間スケジュール（宇和島市サイト）に差し替えています。テクポ・公式サイトの両方に載っている展覧会（合田史彦作品展、光風会愛媛絵画展、大場咲子展、濱田亨近作展など）は重複させず、公式サイト側の掲載を優先しています。</li>
+      <li><a href="https://www.tokyoartbeat.com/events/localAreaId/42nIRNNd7l6aBLELprt2nd/orderBy/latest" target="_blank" rel="noopener"><b>Tokyo Art Beat（愛媛県の展覧会一覧）</b></a>：愛媛県の掲載は全5件。そのうち2件（愛媛県美術館コレクション展Ⅲ「絵画から大衆メディアへ」、久万美術館「コレクションは繁茂する」）は既掲載と重複。新規に「蜷川実花 with EiM × 道後温泉 DOGO ART」を追加し、「再び、大三島を元気にしよう！」は同サイトの掲載で会期（2026年1月31日〜2027年1月11日）を確認できたため、開始日未確認のグループから日付ありの掲載に移しました。残る「木梨憲武展―TOUCH」（新居浜市美術館、12月5日〜）は今回の対象期間外のため、次回以降の基準日版で扱います（テクポにも同じ展覧会が掲載されています）。</li>
+    </ul>
+    <h3>要確認の掲載</h3>
+    <ul>
+      <li><b>本の轍「4EYES 2BRAINS 30BOXES」</b>（11/12〜11/30）：会期表記に年の記載がありません。サイト内の2026年の記事として掲載されているものです。なお同店の杉本さなえ展は11月8日で終了したため、今回の掲載対象外です。</li>
+      <li><b>第75回秋季県展</b>は愛媛県美術館（本展）・あかがねミュージアム（新居浜移動展）・河野美術館（今治移動展）の3会場で時期をずらして開催されます。このうち基準日に開催中なのは新居浜・今治の両移動展です（本展は11月6日で終了）。</li>
+      <li><b>ギャラリー リブ・アート</b>の11月5日〜10日の2展（「パン屑の記憶」「松本秀一追悼展 epilogue」の併記）は11月10日で終了したため、今回は掲載していません。</li>
+    </ul>
+    <h3>11月の展覧会が確認できなかった施設</h3>
+    <p>うつわSouSou、玉川近代美術館（12月上旬まで臨時休館中）、上浦歴史民俗資料館、Benibara、彩美画廊、アルチザン、ARToRIDe、RICO SWEETS、CANVAS-EHIME、GALERIE une fille、あおき美術（長期休廊中）、ルーチェベルデ、西条市立郷土博物館、野間仁根バラのミュージアム、大三島美術館、ところミュージアム大三島、岩田健母と子のミュージアム、画廊喫茶さぼうる、瓶泥舎ガラス美術館、アートヴィレッジとうおん、乗松巖記念館（常設展示のため除外）など。坂村真民記念館は2026年9月末で閉館しました。</p>
+    <h3>リンク先を差し替えた施設（2026年11月13日）</h3>
+    <p>次の3件は、参照するURLを下記へ差し替えました。今後の確認はこのURLで行います。</p>
+    <ul>
+      <li><a href="https://www.city.uwajima.ehime.jp/site/azechi-iseki-museum/art-museum-annual-schedule-2026.html" target="_blank" rel="noopener"><b>畦地梅太郎記念美術館・井関邦三郎記念館</b></a>：宇和島市公式サイトの2026年度年間スケジュール。「高橋基 木版画展」のカードのリンク先もこのURLに差し替えました。</li>
+      <li><a href="https://www.3ta2-gallery.com" target="_blank" rel="noopener"><b>3ta2 GALLERY</b></a>：公式サイト（www.3ta2-gallery.com）。</li>
+      <li><a href="https://www.bansuisou.org/event_exhibition/" target="_blank" rel="noopener"><b>萬翠荘</b></a>：公式サイトのイベント・展覧会ページ。</li>
+    </ul>
+    <h3>対象から除外した施設</h3>
+    <p>次の7件は調査対象から除外しました。そのため上記の66サイトには含まれず、「確認できなかった施設」の集計にも入れていません：いよてつ高島屋、木星舎、Jumon、日々hibi くらしのモノ、ギャラリーサンキエーム、版画の三幸、愛媛CATVオープンスタジオ。</p>
+    <h3>サイト側の問題で確認できなかった施設</h3>
+    <p>ギャラリーラボ（取得できた内容が古く、11月分は未確認）。</p>
+    <p>会期・休館日・料金は変更される場合があります。出かける前に各施設の公式サイトで最新情報をご確認ください。</p>
+  </section>
+
+  <footer class="page">
+    出典：各施設の公式サイト、ならびにアートマップ テクポ（tekupo.com）とTokyo Art Beatの愛媛県ページ（各カードのリンク先）。調査日 2026年11月13日（同日に上記2情報源を追加して照合）。掲載は2026年11月16日（月）を基準日とし、基準日に開催中のものと11月23日までに始まるものに限ります。会期表記は各サイトの表記をもとに西暦で統一し、概要は各サイトの掲載内容に基づきます。常設展示のみの案内は除いています。
+  </footer>
+</div>
+
+<script>
+var TODAY = "2026-11-16";
+var WEEK_END = "2026-11-23";
+function inScope(x){
+  if(x.s){ return (x.s<=TODAY && TODAY<=x.e) || (TODAY<x.s && x.s<=WEEK_END); }
+  return x.st==="live";
+}
+var DATA = [
+{s:"2025-10-10",e:"2027-02-28",t:"蜷川実花 with EiM × 道後温泉 DOGO ART",v:"道後温泉本館",c:"松山市",a:"中予",p:"2025年10月10日（金）～2027年2月28日（日）",d:"写真家・映画監督の蜷川実花とクリエイティブチームEiMによる、道後温泉本館を舞台にしたアートプロジェクト。インスタレーション・写真・映像で構成される（Tokyo Art Beatの愛媛県ページに掲載）。",u:"https://www.tokyoartbeat.com/events/-/Mika-Ninagawa-with-Ei-M-Dogo-Art/dogo-onsen-honkan/2025-10-10",un:"出典：Tokyo Art Beat"},
+{s:"2026-01-31",e:"2027-01-11",t:"再び、大三島を元気にしよう！ Reviving Omishima Together Again",v:"今治市伊東豊雄建築ミュージアム",c:"今治市",a:"東予",p:"2026年1月31日（土）～2027年1月11日（月・祝）",d:"廃校になった中学校の再生や、農業を始める人のための小住宅など、大学研究室チームと協力した大三島活性化の提案を紹介する展示。同館サイトでは会期の表記がなかったが、Tokyo Art Beatの掲載で会期を確認できた。",u:"https://www.tima-imabari.jp/exhibition/2559/",un:"出典：今治市伊東豊雄建築ミュージアム／会期はTokyo Art Beat"},
+{s:"2026-04-25",e:"2027-03-14",t:"今治市河野美術館 館蔵品名品展",v:"今治市河野美術館",c:"今治市",a:"東予",p:"2026年4月25日（土）～2027年3月14日（日）",d:"同館の館蔵品から名品を紹介する展覧会（アートマップ テクポに掲載）。",u:"https://tekupo.com/archives/42342",un:"出典：アートマップ テクポ"},
+{s:"2026-07-19",e:"2027-01-11",t:"第31回全国「かまぼこ板の絵」展覧会",v:"西予市立美術館 ギャラリーしろかわ",c:"西予市",a:"南予",p:"2026年7月19日（日）～2027年1月11日（月・祝）",d:"全都道府県および海外から応募された6,552点すべての作品を一堂に展示する、かまぼこ板をキャンバスにした絵の展覧会。",u:"https://www.city.seiyo.ehime.jp/miryoku/galleryshirokawa/tenrankai/19088.html"},
+{s:"2026-08-01",e:"2027-01-26",t:"SNOOPY Hug Your Happiness ～スヌーピー 好きに包まれる展～",v:"タオル美術館",c:"今治市",a:"東予",p:"2026年8月1日（土）～2027年1月26日（火）",d:"スヌーピーと仲間たちの世界をタオルアートで表現する企画展（5階有料ギャラリー）。2025年に始まった「しあわせつむぐ展」のリニューアル開催で、秋冬は庭園のプロジェクションマッピングも連動する。",u:"https://www.towelmuseum.com/exhibition-list/",un:"会期・概要は同館のプレスリリースによる"},
+{s:"2026-09-05",e:"2027-01-18",t:"令和8年度 宇和島伊達家コレクション展2「伊達宗徳 ―最後の藩主が生きた『江戸』と『明治』―」",v:"宇和島市立伊達博物館",c:"宇和島市",a:"南予",p:"2026年9月5日（土）～2027年1月18日（月）",d:"最後の藩主・伊達宗徳の正室・佳姫の婚礼調度や、幕末維新から明治の宇和島を巡る資料、明治期のくらしの移り変わりなどを展示し、江戸と明治を生きた宗徳と人々を見つめる。",u:"https://www.city.uwajima.ehime.jp/event/datehaku-top/collection-2026-2.html"},
+{s:"2026-09-12",e:"2026-11-23",t:"小田久義×拓也 二人展",v:"風の博物館・歌麿館",c:"大洲市",a:"南予",p:"2026年9月12日（土）～11月23日（月・祝）",d:"愛媛の彫刻界を牽引してきた小田久義と子息・拓也、親子二代の彫刻家による二人展。同館初の彫刻展で、10月23日から一部展示替え済み。入場無料。",u:"http://www.kazehaku.jp/?cat=7"},
+{s:"2026-09-12",e:"2026-11-29",t:"秋の所蔵作品展「文化勲章・文化功労者 ―栄誉に輝いた画家たち―」",v:"セキ美術館",c:"松山市",a:"中予",p:"2026年9月12日（土）～11月29日（日）",d:"横山大観、上村松園、東山魁夷、平山郁夫ら文化勲章・文化功労者の日本画・洋画の所蔵品展。ロダンの部屋ではロダンの彫刻・版画も展示。",u:"http://art.seki.co.jp/contents/exhibit"},
+{s:"2026-09-12",e:"2026-12-06",t:"2026年度自主企画展「コレクションは繁茂する」",v:"町立久万美術館",c:"久万高原町",a:"中予",p:"2026年9月12日（土）～12月6日（日）",d:"319点の「井部コレクション」から始まり約1,200点に増えた同館コレクションの歩みを、岸田劉生ら出品作とともにたどり、美術館とコレクションの関係を考える自主企画展。",u:"https://www.kumakogen.jp/site/muse/26909.html"},
+{s:"2026-09-19",e:"2026-11-23",t:"特別展「伊予松山城 城郭・御殿・城下町」",v:"愛媛県歴史文化博物館",c:"西予市",a:"南予",p:"2026年9月19日（土）～11月23日（月・祝）",d:"伊予松山城の城郭・三之丸御殿・城下町を、松山城下図屏風や三之丸絵、城下町絵図などの絵図・資料から紹介する特別展（企画展示室）。",u:"http://www.i-rekihaku.jp/exhibition/special/2026/0919/"},
+{s:"2026-09-19",e:"2026-11-23",t:"テーマ展「鳥になって、お城へ ―吉田初三郎とめぐる空の旅―」",v:"愛媛県歴史文化博物館",c:"西予市",a:"南予",p:"2026年9月19日（土）～11月23日（月・祝）",d:"鳥瞰図絵師・吉田初三郎の「初三郎式鳥瞰図」を通して、各地の城や城下町を空から眺める旅を紹介するテーマ展（文書展示室）。",u:"http://www.i-rekihaku.jp/exhibition/special/2026/0919_2/"},
+{s:"2026-09-19",e:"2026-11-23",t:"テーマ展「馬 人と暮らしてきた動物」",v:"愛媛県歴史文化博物館",c:"西予市",a:"南予",p:"2026年9月19日（土）～11月23日（月・祝）",d:"日本在来馬「野間馬」の愛媛県指定天然記念物指定を記念し、古墳の副葬品や骨、絵巻、民具、写真などから交通・運送・農業・信仰における馬と人の関わりを紹介（考古展示室）。",u:"http://www.i-rekihaku.jp/exhibition/special/2026/0919_3/"},
+{s:"2026-09-25",e:"2026-12-25",t:"茶道具取り合わせ",v:"愛媛文華館",c:"今治市",a:"東予",p:"2026年9月25日～12月25日",d:"大名物・志野丸壺茶入や南蛮象牙蒔絵茶入れ、硝子水指、古唐津の茶碗など、茶道具の取り合わせを展示する所蔵品展。",u:"https://ehimebunkakan.jp/"},
+{s:"2026-10-03",e:"2026-11-08",t:"ジミー大西「ホームタウン」愛媛展",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年10月3日（土）～11月8日（日）",d:"同館の共催展として開催される、ジミー大西の作品展。",u:"http://www.ehime-art.jp/info/?cat=2",un:"愛媛県美術館 展覧会一覧"},
+{s:"2026-10-03",e:"2026-12-20",t:"幕末期を代表する浮世絵師 芳虎展",v:"風の博物館・歌麿館",c:"大洲市",a:"南予",p:"2026年10月3日（土）～12月20日（日）",d:"歌川芳虎の「武者絵3枚続き」や「横浜絵」などを展示し、幕末から文明開化へ激変する時代を描いた浮世絵の世界を紹介する。",u:"http://www.kazehaku.jp/?cat=7"},
+{s:"2026-10-10",e:"2026-12-13",t:"コレクション展Ⅲ「コレクション・ハイライト」",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年10月10日（土）～12月13日（日）",d:"郷土作家や海外作品など同館の名品・逸品を紹介。特集作家は新居浜市出身のイラストレーター真鍋博（「装丁」がテーマ）。県民文化会館の緞帳原画コーナーも併設。",u:"https://www.ehime-art.jp/exhibition/detail/18d5fd08-fde1-4d90-a15d-976b2784434e"},
+{s:"2026-10-10",e:"2026-12-13",t:"コレクション展Ⅲ「絵画から大衆メディアへ ―柳瀬正夢と真鍋博の挑戦―」",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年10月10日（土）～12月13日（日）",d:"油彩から漫画へ表現の舞台を移した柳瀬正夢と真鍋博、二人のグラフィックメディア作品を通して、鋭い社会風刺を試みた共通点と対照的な軌跡に焦点を当てる。",u:"https://www.ehime-art.jp/exhibition/detail/623cf861-b38e-4846-8e95-f38b9cd819ef"},
+{s:"2026-10-10",e:"2026-12-13",t:"特別展「高龍寺」",v:"村上海賊ミュージアム",c:"今治市",a:"東予",p:"2026年10月10日～12月13日",d:"高龍寺に伝わる史料を主題とする特別展。関連講座「高龍寺所蔵史料を読む」が11月28日・29日に開催予定。",u:"https://www.city.imabari.ehime.jp/museum/suigun/event/"},
+{s:"2026-10-10",e:"2027-01-11",t:"やなせたかしが見た高畠華宵の世界 ―懐かしき美の追憶―",v:"高畠華宵大正ロマン館",c:"東温市",a:"中予",p:"2026年10月10日（土）～2027年1月11日（月・祝）",d:"「アンパンマン」の作者やなせたかしが幼いころに触れて育った高畠華宵の作品を取り上げ、華宵世界の魅力と、やなせ作品への影響を考える。開館は毎週土・日・祝日のみ。",u:"https://www.kashomuseum.org/blank-14"},
+{s:"2026-10-11",e:"2026-11-29",t:"高橋篤世 彩りの便り展",v:"紙のまち資料館",c:"四国中央市",a:"東予",p:"2026年10月11日（日）～11月29日（日）",d:"81才が紡ぐ、絵手紙と水彩画の小さな作品展。",u:"https://www.city.shikokuchuo.ehime.jp/site/kaminomachi/13996.html"},
+{s:"2026-10-16",e:"2027-01-11",t:"高橋基 木版画展 －ふるさとへの思い－",v:"畦地梅太郎記念美術館（「道の駅みま」併設）",c:"宇和島市",a:"南予",p:"2026年10月16日（金）～2027年1月11日（月・祝）",d:"木版画に魅せられて45年余り、ふるさと・えひめの風景を制作してきた高橋基の個展。宇和島と南予の風景を中心に、愛媛県内の作品42点を展示。",u:"https://www.city.uwajima.ehime.jp/site/azechi-iseki-museum/art-museum-annual-schedule-2026.html",un:"出典：畦地梅太郎記念美術館・井関邦三郎記念館 公式サイト（2026年度 年間スケジュール）"},
+{s:"2026-10-20",e:"2026-11-06",t:"第75回秋季県展（貸しギャラリー・南館）",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年10月20日～27日／10月30日～11月6日",d:"県民総合文化祭の美術展。絵画・彫刻・写真・書・デザイン・工芸などの県展出品作を前期・後期に分けて展示（11月に重なるのは後期）。",u:"https://www.ehime-art.jp/info/?cat=4",un:"愛媛県美術館 貸しギャラリー案内"},
+{s:"2026-10-22",e:"2026-11-08",t:"杉本さなえ 作品集「石を放す」ドローイング展",v:"本の轍",c:"松山市",a:"中予",p:"10月22日（木）～11月8日（日）",d:"朱色と墨のみで描くイラストレーター杉本さなえの作品集『石を放す』刊行に伴う、手描きドローイングの展示販売。",u:"https://www.honnowadachi.com/",n:"会期表記に年の記載なし（サイト内は2026年の記事）。サイト上「終了」扱い。"},
+{s:"2026-10-24",e:"2026-11-03",t:"市制施行90周年記念プレ事業 第76回新居浜市美術展覧会",v:"あかがねミュージアム／新居浜市美術館",c:"新居浜市",a:"東予",p:"2026年10月24日（土）～11月3日（火・祝）",d:"洋画・書道・絵手紙・日本画・写真・版画・デザイン・工芸など、市内在住・出身・在勤者の作品を展示する新居浜市の文化芸術の祭典（華道は前期10/31～11/1、後期11/2～11/3）。",u:"https://akaganemuseum.jp/event"},
+{s:"2026-10-27",e:"2026-11-28",t:"利藤大貴版画展「夢のつづき」",v:"梅本の里「いつものキッチン」",c:"松山市",a:"中予",p:"2026年10月27日（火）～11月28日（土）",d:"版画家・利藤大貴による個展。独自の色彩感覚と構図で表現された版画作品を展示（アートマップ テクポに掲載）。日曜・月曜定休、入場無料。",u:"https://tekupo.com/archives/42738",un:"出典：アートマップ テクポ"},
+{s:"2026-10-31",e:"2026-12-06",t:"伊豫先哲『宝の言葉展』",v:"松山兎月庵文化歴史館",c:"松山市",a:"中予",p:"2026年10月31日～12月6日（土・日曜日のみ、11時～18時）",d:"愛媛・松山ゆかりの先哲や偉人の直筆や実物を公開しつつ、その名言や金言を紹介する展示。",u:"https://togetsuan.jimdofree.com/"},
+{s:"2026-11-04",e:"2026-11-29",t:"山岳写真集団くもの会 写真展",v:"朝倉ふるさと美術古墳館",c:"今治市",a:"東予",p:"2026年11月4日～11月29日（本館Ⅱ、最終日は16時まで、入場無料）",d:"山岳写真集団「くもの会」による山岳写真の展示。",u:"http://museum.city.imabari.ehime.jp/asakura/event/"},
+{s:"2026-11-05",e:"2026-11-29",t:"第43回 フォーランドアートクラブ展",v:"朝倉ふるさと美術古墳館",c:"今治市",a:"東予",p:"2026年11月5日～11月29日（本館Ⅰ、最終日は16時まで、入場無料）",d:"フォーランドアートクラブ会員による作品展。",u:"http://museum.city.imabari.ehime.jp/asakura/event/"},
+{s:"2026-11-05",e:"2026-11-10",t:"パン屑の記憶",v:"ギャラリー リブ・アート",c:"松山市",a:"中予",p:"2026年11月5日（木）～11月10日（火）（両室）",d:"愛媛の若手作家11人による、今年で3回目のグループ展。",u:"http://liveart25.com/page/exhibition.html",n:"下記「松本秀一追悼展」と同日程・両室で併記あり（要確認）。"},
+{s:"2026-11-05",e:"2026-11-10",t:"松本秀一追悼展「epilogue」",v:"ギャラリー リブ・アート",c:"松山市",a:"中予",p:"2026年11月5日（木）～11月10日（火）（両室）",d:"2026年6月に74歳で逝去した銅版画家・松本秀一の追悼版画展。メゾチント作品群などを展示。",u:"http://liveart25.com/page/exhibition.html",n:"同館ページには上記「パン屑の記憶」と同日程・両室の掲載もあり、どちらが正かは要確認。"},
+{s:"2026-11-07",e:"2026-11-12",t:"風会員「秋の風展 パート2」",v:"アートギャラリー風",c:"松山市",a:"中予",p:"2026年11月7日（土）～11月12日（木）",d:"ギャラリー風の会員によるアート展。",u:"http://www.kazeart.jp/tenji.html"},
+{s:"2026-11-11",e:"2026-11-23",t:"第75回 愛媛県展新居浜移動展",v:"あかがねミュージアム",c:"新居浜市",a:"東予",p:"2026年11月11日（水）～11月23日（月）",d:"県展出品作品の中から、東予地区出身の作家の作品を中心に優秀作品（絵画、彫刻、写真、書、デザイン、工芸など）を展示。市民ギャラリー・展示室1・2、無料。",u:"https://akaganemuseum.jp/event/event-16185"},
+{s:"2026-11-11",e:"2026-11-19",t:"河野 甲展（KONO KO LEATHER WORKS）",v:"アトリエぱれっとガロ",c:"宇和島市",a:"南予",p:"2026年11月11日（水）～11月19日（木）",d:"革を使った作品の展示。羽根の生えた生物や人物など、懐かしさを感じる不思議な造形感とリアリティーのある作品を紹介。",u:"https://www.art-palette.com/ivent2"},
+{s:"2026-11-12",e:"2026-11-15",t:"第40回愛媛県高等学校総合文化祭（貸しギャラリー・南館）",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年11月12日～11月15日",d:"県民総合文化祭として開かれる、県内高校生の総合文化祭（美術等の展示）。",u:"https://www.ehime-art.jp/info/?cat=4",un:"愛媛県美術館 貸しギャラリー案内"},
+{s:"2026-11-12",e:"2026-11-30",t:"4EYES 2BRAINS 30BOXES SAIKO OTAKE & SHOKO OTAKE",v:"本の轍",c:"松山市",a:"中予",p:"11月12日（木）～11月30日（月）",d:"大竹彩子・大竹笙子の姉妹によるコラボレーション作品を収めた限定スペシャルボックスの完成記念展。ボックス収録作品や内容品、関連グッズを展示・販売。",u:"https://www.honnowadachi.com/",n:"会期表記に年の記載なし（サイト内は2026年の記事）。"},
+{s:"2026-11-12",e:"2026-11-17",t:"WE ARE ART LOVERS 展",v:"ギャラリー リブ・アート",c:"松山市",a:"中予",p:"2026年11月12日（木）～11月17日（火）（北室）",d:"街の中のさまざまな分野で活動している10人の作家による展覧会。",u:"http://liveart25.com/page/exhibition.html"},
+{s:"2026-11-12",e:"2026-11-17",t:"8ニン十イロ 展",v:"ギャラリー リブ・アート",c:"松山市",a:"中予",p:"2026年11月12日（木）～11月17日（火）（南室）",d:"8人のクリエーターがそれぞれの「イロ」を持ち寄る展示。イラスト、写真、立体などを展示予定。",u:"http://liveart25.com/page/exhibition.html"},
+{s:"2026-11-13",e:"2026-11-23",t:"大場咲子展",v:"ギャラリーかわにし",c:"西条市",a:"東予",p:"2026年11月13日（金）～11月23日（日）",d:"画家・大場咲子の個展。11月23日まで。",u:"http://www.g-kawanishi.com/"},
+{s:"2026-11-14",e:"2026-12-13",t:"ミサキノオト ―音でたどる佐田岬半島の民具―",v:"佐田岬半島ミュージアム",c:"伊方町",a:"南予",p:"2026年11月14日（土）～12月13日（日）",d:"暮らしの中で使われてきた民具を、半島を描いた小説、学校の文集、民俗報告書、聞書きなどから集めた“音”で振り返る、失われつつある地域の音に耳をすませる自主企画展。",u:"https://sadamisakihanto-museum.jp/event"},
+{s:"2026-11-14",e:"2026-11-23",t:"第75回秋季県展 今治移動展",v:"河野美術館",c:"今治市",a:"東予",p:"2026年11月14日～11月23日（9時～17時、初日は開展式のため10時から、最終日は15時まで）",d:"同館の貸会場で開催される秋季県展の今治移動展。",u:"http://museum.city.imabari.ehime.jp/kono/event/"},
+{s:"2026-11-15",e:"2027-01-24",t:"濱田亨近作展 －偶然の扉",v:"三浦美術館",c:"松山市",a:"中予",p:"2026年11月15日（日）～2027年1月24日（日）",d:"当館で3回目、13年ぶりの開催。19歳でフランスへ渡った後、42年から53年の歳月を経て制作された作品群を紹介する。開幕前は展示替えのため休館中。",u:"https://www.miuraz.co.jp/miurart/special/2026/1281.php"},
+{s:"2026-11-18",e:"2026-11-22",t:"須山楓写真展（貸しギャラリー・南館）",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年11月18日～11月22日",d:"須山楓の写真展。",u:"https://www.ehime-art.jp/info/?cat=4",un:"愛媛県美術館 貸しギャラリー案内"},
+{s:"2026-11-18",e:"2026-12-04",t:"子どもの書道展",v:"西条市佐伯記念館・郷土資料館",c:"西条市",a:"東予",p:"2026年11月18日（水）～12月4日（金）",d:"市内で書道を学ぶ子どもたちの作品を展示する。",u:"https://www.city.saijo.ehime.jp/soshiki/syakaikyoiku/saiki-moyoshi.html"},
+{s:"2026-11-18",e:"2026-11-26",t:"第4回 いよ美術会展 日美是好日",v:"IYO夢みらい館",c:"伊予市",a:"中予",p:"2026年11月18日（水）～11月26日（木）",d:"いよ美術会による第4回の作品展。2階の会議室・工芸室と1階の縁側モールで開催、入場無料。11月24日（火）は休館（アートマップ テクポに掲載）。",u:"https://tekupo.com/archives/42782",un:"出典：アートマップ テクポ"},
+{s:"2026-11-19",e:"2026-11-23",t:"創作アップリケ展（貸しギャラリー・南館）",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年11月19日～11月23日",d:"アップリケ作品の展示。",u:"https://www.ehime-art.jp/info/?cat=4",un:"愛媛県美術館 貸しギャラリー案内"},
+{s:"2026-11-19",e:"2026-12-01",t:"合田史彦 作品展 80sー20s",v:"ギャラリー リブ・アート",c:"松山市",a:"中予",p:"2026年11月19日（木）～12月1日（火）（両室）",d:"画家・合田史彦による、1980年代から2000年代までの40年余りの自作を振り返る個展。",u:"http://liveart25.com/page/exhibition.html"},
+{s:"2026-11-20",e:"2026-11-24",t:"片平和夫油彩展 ―空、光舞うところ ミドリ咲う―",v:"space ヤドリギノニカイ",c:"松山市",a:"中予",p:"2026年11月20日（金）～11月24日（火）",d:"長年、ごく普通の日常の風景を描き続けてきた片平和夫の個展。「ミドリ」に焦点をあて、油彩風景画をメインに約20点を展示。にごりのない色彩と半抽象の色面、「片平グリーン」と称される緑が特徴。入場無料（アートマップ テクポに掲載）。",u:"https://tekupo.com/archives/42693",un:"出典：アートマップ テクポ"},
+{s:"2026-11-21",e:"2027-01-11",t:"共催展 Mozuミニチュア展2 のぞいてみよう、ちいさなせかい。",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年11月21日（土）～2027年1月11日（月・祝）",d:"コマ撮りアニメ、ミニチュア、トリックラクガキの3分野で活躍するマルチアーティスト・Mozuの新作ミニチュア展。「こびとの書斎」「こびとの縁側」など新しい世界観のミニチュア作品を展示。",u:"https://www.ehime-art.jp/",un:"愛媛県美術館 展覧会案内"},
+{s:"2026-11-21",e:"2026-11-23",t:"第21回愛媛一先会かな書展（貸しギャラリー・南館）",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年11月21日～11月23日",d:"かな書の書道展。",u:"https://www.ehime-art.jp/info/?cat=4",un:"愛媛県美術館 貸しギャラリー案内"},
+{s:"2026-11-21",e:"2026-11-29",t:"光風会愛媛絵画展（貸しギャラリー・南館）",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年11月21日～11月29日",d:"光風会愛媛の絵画展。",u:"https://www.ehime-art.jp/info/?cat=4",un:"愛媛県美術館 貸しギャラリー案内"},
+{s:"2026-11-22",e:"2027-01-24",t:"恒例 －干支飾り－",v:"愛媛民藝館",c:"西条市",a:"東予",p:"2026年11月22日（日）～2027年1月24日（日）",d:"令和9年は未年であることにちなみ、民藝館が所蔵する未の干支飾りを展示する。干支飾りは古来、開運や健康、豊作を願って日本各地で作られてきた。",u:"http://ehimemingeikan.jp/tokubetuten.html"},
+{s:"2026-11-22",e:"2026-11-27",t:"2026年 松山展 愛媛現代美術家集団 現美展 小作品展",v:"ギャラリー キャメルK",c:"松山市",a:"中予",p:"2026年11月22日（日）～11月27日（金）",d:"愛媛現代美術家集団「現美」による小作品展の松山展。入場無料、最終日は15時まで（アートマップ テクポに掲載）。",u:"https://tekupo.com/archives/42786",un:"出典：アートマップ テクポ"},
+{s:"2026-11-25",e:"2026-11-29",t:"リアリズムフォト愛媛交友会写真展（貸しギャラリー・南館）",v:"愛媛県美術館",c:"松山市",a:"中予",p:"2026年11月25日～11月29日",d:"写真クラブの写真展。",u:"https://www.ehime-art.jp/info/?cat=4",un:"愛媛県美術館 貸しギャラリー案内"},
+{s:"2026-11-25",e:"2026-12-03",t:"宮川淳一郎展 －SUBUNE etc.－",v:"アトリエぱれっとガロ",c:"宇和島市",a:"南予",p:"2026年11月25日（水）～12月3日（木）",d:"1964年に南予で生まれた美術集団「シコロ」結成に参加した宮川淳一郎の展覧会。海岸に漂着した流木などを作品として蘇らせる。",u:"https://www.art-palette.com/ivent2"},
+{s:"2026-11-27",e:"2026-11-29",t:"第33回 書神会新居浜支部書道展",v:"あかがねミュージアム",c:"新居浜市",a:"東予",p:"2026年11月27日（金）～11月29日（日）",d:"書神会新居浜支部の書道展。",u:"https://akaganemuseum.jp/events/mec-events-16177"},
+{s:"2026-11-28",e:"2026-12-05",t:"monSakata展",v:"gallery 陶倶楽部",c:"西条市",a:"東予",p:"2026年11月28日（土）～12月5日（土）（会期中12月2日は休み）",d:"坂田敏子（monSakata）による秋冬の洋服の展示。著書『いつもスタートラインにいる私』出版後の開催。",u:"https://tou-club.com/exhibition/"},
+{s:"2026-11-28",e:"2026-12-06",t:"スギウラ工房展",v:"TODAY'S GALLERY",c:"大洲市",a:"南予",p:"2026年11月28日～12月6日",d:"工房「スギウラ工房」の展示会。",u:"http://todaysgallery.com/",n:"詳細ページはエラーで概要未確認（トップページに会期と展覧会名の掲載あり）。"}
+];
+var UNKNOWN = [
+{t:"第9回 墨・和紙・竹と戯れて",v:"西条市佐伯記念館・郷土資料館",c:"西条市",a:"東予",p:"開催中～2026年11月11日（水）（開始日はページに記載なし）",d:"手すき和紙の行灯や竹とんぼなどの作品を展示。11月11日で終了。",u:"https://www.city.saijo.ehime.jp/soshiki/syakaikyoiku/saiki-moyoshi.html",st:"ended"},
+{t:"企画展 伊丹十三の「食べたり、呑んだり、作ったり。」展",v:"伊丹十三記念館",c:"松山市",a:"中予",p:"開催中（全体会期の明記なし。映像コーナーの展示替えは2026年11月1日開始分あり）",d:"伊丹十三が愛用した器や台所道具、食に関する著書の直筆原稿などを展示し、「おいしさ」の舞台裏を探る初の企画展。",u:"http://itami-kinenkan.jp/information/info03.html",st:"live"},
+{t:"五百亀記念館企画展「西条藩いろいろ展 ～没後40年・秋山英一氏旧蔵藩政時代史料を中心に～」",v:"五百亀記念館",c:"西条市",a:"東予",p:"会期は「～3月28日（日曜日）」とのみ表記（開始日・年は未確認。現在開催中の企画展として掲載）",d:"秋山英一氏旧蔵の藩政時代史料を中心に、西条藩を紹介する企画展。",u:"https://www.city.saijo.ehime.jp/soshiki/syakaikyoiku/ioki-moyoshi.html",st:"live"},
+{t:"畦地梅太郎版画 府川誠版画展示（2階展示場）",v:"ギャラリー名画堂",c:"宇和島市",a:"南予",p:"展示中（会期の記載なし）",d:"畦地梅太郎と府川誠の版画を展示・即売。",u:"https://www.meigadou.com/o.garou30/o.garou30-2.htm",st:"live"}
+];
+
+function days(a,b){return Math.round((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/86400000);}
+function statusOf(x){
+  if(x.s){
+    if(TODAY < x.s) return {k:"upcoming",label:"これから",cls:"b-up"};
+    if(TODAY > x.e) return {k:"ended",label:"終了",cls:"b-end"};
+    var r = days(TODAY,x.e);
+    if(x.s===TODAY) return {k:"live",label:"本日開幕",cls:"b-today",remain:r};
+    if(r<=7) return {k:"live",label:"開催中",cls:"b-soon",remain:r,ending:true};
+    return {k:"live",label:"開催中",cls:"b-live",remain:r};
+  }
+  return x.st==="ended" ? {k:"ended",label:"終了",cls:"b-end"} : {k:"live",label:"開催中",cls:"b-live"};
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function host(u){try{return new URL(u).hostname.replace(/^www\./,"");}catch(e){return u;}}
+function cardHTML(x){
+  var st=statusOf(x);
+  var remain="";
+  if(st.remain!==undefined && st.k==="live"){
+    remain = st.remain===0 ? '<span class="remain">本日最終日</span>' : '<span class="remain'+(st.ending?"":" ok")+'">あと'+st.remain+'日</span>';
+  }
+  if(st.k==="upcoming"){ remain='<span class="remain ok">開幕まであと'+days(TODAY,x.s)+'日</span>'; }
+  var note = x.n ? '<div class="note">⚠ '+esc(x.n)+'</div>' : "";
+  var srcLabel = x.un ? esc(x.un) : "出典："+host(x.u);
+  return '<article class="card'+(st.k==="ended"?" ended":"")+'" data-status="'+st.k+'" data-ending="'+(st.ending?1:0)+'">'
+    +'<div class="top"><span class="badge '+st.cls+'">'+st.label+'</span><span class="area">'+esc(x.a)+' ・ '+esc(x.c)+'</span></div>'
+    +'<h3>'+esc(x.t)+'</h3>'
+    +'<div class="venue"><b>'+esc(x.v)+'</b>（'+esc(x.c)+'）</div>'
+    +'<div class="period">'+esc(x.p)+' '+remain+'</div>'
+    +'<p class="desc">'+esc(x.d)+'</p>'+note
+    +'<footer><span class="src">'+srcLabel+'</span><a class="btn" href="'+esc(x.u)+'" target="_blank" rel="noopener">公式サイト <span class="arr">↗</span></a></footer>'
+    +'</article>';
+}
+var DOW=["日","月","火","水","木","金","土"];
+function fmtDate(iso){
+  var d=new Date(iso+"T00:00:00");
+  return d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日";
+}
+function dateGroups(items){
+  var groups={}, order=[];
+  items.forEach(function(x){ if(!groups[x.s]){groups[x.s]=[];order.push(x.s);} groups[x.s].push(x); });
+  var html="";
+  order.forEach(function(s){
+    var d=new Date(s+"T00:00:00");
+    html+='<section class="group"><div class="group-head"><span class="date">'+fmtDate(s)+' 開始<span class="dow">（'+DOW[d.getDay()]+'）</span></span><span class="rule"></span><span class="cnt">'+groups[s].length+'件</span></div><div class="cards">'+groups[s].map(cardHTML).join("")+'</div></section>';
+  });
+  return html;
+}
+function render(){
+  var q=document.getElementById("q").value.trim().toLowerCase();
+  var fStatus=document.querySelector('#statusSeg button[aria-pressed="true"]').dataset.status;
+  var fArea=document.querySelector('#areaChips .chip[aria-pressed="true"]').dataset.area;
+  function match(x){
+    if(fArea!=="all" && x.a!==fArea) return false;
+    var st=statusOf(x);
+    if(fStatus==="live" && st.k!=="live") return false;
+    if(fStatus==="ending" && !(st.k==="live"&&st.ending)) return false;
+    if(fStatus==="upcoming" && st.k!=="upcoming") return false;
+    if(fStatus==="ended" && st.k!=="ended") return false;
+    if(q){ var hay=(x.t+" "+x.v+" "+x.c+" "+x.d).toLowerCase(); if(hay.indexOf(q)===-1) return false; }
+    return true;
+  }
+  var scoped=DATA.filter(inScope);
+  var liveItems=scoped.filter(function(x){return statusOf(x).k==="live";}).filter(match);
+  var upItems=scoped.filter(function(x){return statusOf(x).k==="upcoming";}).filter(match);
+  var uItems=UNKNOWN.filter(function(x){return x.st==="live";}).filter(match);
+  var totalAll=scoped.length+UNKNOWN.filter(function(x){return x.st==="live";}).length;
+  var totalLive=scoped.filter(function(x){return statusOf(x).k==="live";}).length+UNKNOWN.filter(function(x){return x.st==="live";}).length;
+  var totalUp=totalAll-totalLive;
+  var shown=liveItems.length+upItems.length+uItems.length;
+  var html="";
+  if(liveItems.length||uItems.length){
+    html+='<div class="sec-head first"><h2>開催中</h2><span class="sec-sub">11月16日（月）時点で開催中 ・ 開始日順</span><span class="sec-cnt">'+(liveItems.length+uItems.length)+'件</span></div>';
+    html+=dateGroups(liveItems);
+    if(uItems.length){
+      html+='<section class="group"><div class="group-head"><span class="date">開始日が確認できなかったもの<span class="dow">開催中</span></span><span class="rule"></span><span class="cnt">'+uItems.length+'件</span></div><div class="cards">'+uItems.map(cardHTML).join("")+'</div></section>';
+    }
+  }
+  if(upItems.length){
+    html+='<div class="sec-head'+(html?"":" first")+'"><h2>まもなく開幕</h2><span class="sec-sub">11月17日（火）〜23日（月・祝）に開始 ・ 開始日順</span><span class="sec-cnt">'+upItems.length+'件</span></div>';
+    html+=dateGroups(upItems);
+  }
+  document.getElementById("list").innerHTML=html;
+  document.getElementById("empty").className="empty"+(shown===0?" show":"");
+  document.getElementById("resultLine").innerHTML="<b>"+shown+"件</b> を表示中（掲載全"+totalAll+"件：開催中"+totalLive+"件＋開幕予定"+totalUp+"件）";
+  document.getElementById("filterToggle").classList.toggle("has-active", fStatus!=="all"||fArea!=="all");
+}
+document.getElementById("q").addEventListener("input",render);
+var toolbarEl=document.querySelector(".toolbar");
+var filterToggleEl=document.getElementById("filterToggle");
+filterToggleEl.addEventListener("click",function(){
+  var open=toolbarEl.classList.toggle("filters-open");
+  filterToggleEl.setAttribute("aria-expanded",open?"true":"false");
+});
+function closeFiltersMobile(){
+  if(window.matchMedia("(max-width:760px)").matches){
+    toolbarEl.classList.remove("filters-open");
+    filterToggleEl.setAttribute("aria-expanded","false");
+  }
+}
+document.getElementById("statusSeg").addEventListener("click",function(e){
+  if(e.target.tagName!=="BUTTON")return;
+  this.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed","false");});
+  e.target.setAttribute("aria-pressed","true"); render(); closeFiltersMobile();
+});
+document.getElementById("areaChips").addEventListener("click",function(e){
+  if(e.target.tagName!=="BUTTON")return;
+  this.querySelectorAll(".chip").forEach(function(b){b.setAttribute("aria-pressed","false");});
+  e.target.setAttribute("aria-pressed","true"); render(); closeFiltersMobile();
+});
+var liveCount=DATA.filter(function(x){return inScope(x)&&statusOf(x).k==="live";}).length + UNKNOWN.filter(function(x){return x.st==="live";}).length;
+document.getElementById("statLive").innerHTML=liveCount+"<small> 件</small>";
+document.getElementById("statEnding").innerHTML=DATA.filter(function(x){return inScope(x)&&statusOf(x).k==="live"&&x.e<=WEEK_END;}).length+"<small> 件</small>";
+render();
+</script>
+</body>
+</html>
