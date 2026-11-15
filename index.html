@@ -247,6 +247,7 @@ var TODAY = localToday();
 function addDays(iso,n){var d=new Date(iso+"T00:00:00");d.setDate(d.getDate()+n);return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
 var SOON_END = addDays(TODAY,7);
 var DATA = [
+{s:"2023-07-07",t:"伊丹十三の「食べたり、呑んだり、作ったり。」展",v:"伊丹十三記念館",c:"松山市",a:"中予",p:"2023年7月7日〜（長期開催）",d:"伊丹十三が愛した「食」をテーマに、愛用の器や酒器、台所道具、直筆の原稿・原画などから「おいしさ」の舞台裏を探る初の展覧会。企画構成は中村好文と松家仁之。10:00–18:00（入館は17:30まで）、火曜休館（祝日の場合は翌日）。観覧料は大人800円。",u:"https://itami-kinenkan.jp/information/info03.html"},
 {s:"2025-10-10",e:"2027-02-28",t:"蜷川実花 with EiM × 道後温泉 DOGO ART",v:"道後温泉本館",c:"松山市",a:"中予",p:"2025年10月10日～2027年2月28日",d:"写真家・蜷川実花とクリエイティブチームEiMによるアートプロジェクト。本館の障子やガラスに四季の花々や金魚の写真を設置し、夜間はライトアップされる。",u:"https://dogoonsenart.com/",un:"出典：公式サイト（Tokyo Art Beat経由で確認）"},
 {s:"2026-01-31",e:"2027-01-11",t:"再び、大三島を元気にしよう！ Reviving Omishima Together Again",v:"今治市伊東豊雄建築ミュージアム",c:"今治市",a:"東予",p:"2026年1月31日～2027年1月11日",d:"廃校になった中学校の再生や、農業を始める人のための小住宅など、大学研究室チームと協力した大三島活性化の提案を紹介する展示。",u:"https://www.tima-imabari.jp/exhibition/2559/",un:"出典：公式サイト（会期はTokyo Art Beatで確認）"},
 {s:"2026-04-25",e:"2027-03-14",t:"館蔵品名品展",v:"今治市河野美術館",c:"今治市",a:"東予",p:"2026年4月25日～2027年3月14日",d:"河野美術館の館蔵品から名品を紹介する展覧会。",u:"https://tekupo.com/archives/42342",un:"出典：アートマップ テクポ"},
@@ -304,7 +305,6 @@ var DATA = [
 ];
 var UNKNOWN = [
 {t:"第9回 墨・和紙・竹と戯れて",v:"西条市佐伯記念館・郷土資料館",c:"西条市",a:"東予",p:"開催中～2026年11月11日（水）（開始日はページに記載なし）",d:"手すき和紙の行灯や竹とんぼなどの作品を展示。",u:"https://www.city.saijo.ehime.jp/soshiki/syakaikyoiku/saiki-moyoshi.html",st:"live",e:"2026-11-11",n:"開始日は未確認です。終了日（11月11日）を過ぎると表示されなくなります。"},
-{t:"企画展 伊丹十三の「食べたり、呑んだり、作ったり。」展",v:"伊丹十三記念館",c:"松山市",a:"中予",p:"開催中（ページに全体会期の明記なし）",d:"伊丹十三が愛用した器や台所道具、食に関する著書の直筆原稿などを展示し、「おいしさ」の舞台裏を探る初の企画展。",u:"http://itami-kinenkan.jp/information/info03.html",st:"live"},
 {t:"五百亀記念館企画展「西条藩いろいろ展 ～没後40年・秋山英一氏旧蔵藩政時代史料を中心に～」",v:"五百亀記念館",c:"西条市",a:"東予",p:"会期は「～3月28日（日曜日）」とのみ表記（開始日・年はページで確認できず。現在開催中の企画展として掲載）",d:"秋山英一氏旧蔵の藩政時代史料を中心に、西条藩を紹介する企画展。",u:"https://www.city.saijo.ehime.jp/soshiki/syakaikyoiku/ioki-moyoshi.html",st:"live"},
 {t:"畦地梅太郎版画 府川誠版画展示（2階展示場）",v:"ギャラリー名画堂",c:"宇和島市",a:"南予",p:"展示中（会期の記載なし）",d:"畦地梅太郎と府川誠の版画を展示・即売。",u:"https://www.meigadou.com/o.garou30/o.garou30-2.htm",st:"live"}
 ];
@@ -316,6 +316,7 @@ function statusOf(x){
       if(x.s<=SOON_END) return {k:"soon",label:"まもなく開始",cls:"b-soon"};
       return {k:"future",label:"開始予定",cls:"b-up"};
     }
+    if(!x.e) return {k:"live",label:"開催中",cls:"b-live"};
     if(TODAY > x.e) return {k:"ended",label:"終了",cls:"b-end"};
     var r = days(TODAY,x.e);
     if(x.s===TODAY) return {k:"live",label:"本日開幕",cls:"b-today",remain:r,ending:r<=7};
