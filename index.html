@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="light dark" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="愛媛の美術館・ギャラリーなど 展覧会情報（今週の新着）" href="feed.xml" />
 <title>愛媛の美術館・ギャラリーなど 展覧会情報</title>
 <meta property="og:title" content="愛媛の美術館・ギャラリーなど 展覧会情報" />
 <meta property="og:description" content="愛媛県内の展覧会を、閲覧した日の日付で「開催中」「まもなく開始（7日以内）」に振り分けて表示する一覧です。データ更新：2026年11月18日。" />
@@ -148,7 +149,6 @@
   .notes h4{font-size:14px;margin:16px 0 4px;color:var(--ink);font-weight:700}
   .notes p,.notes li{font-size:13.8px;color:var(--ink2)}
   .notes ul{padding-left:1.25em;margin:6px 0}
-  footer.page{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3)}
   @media print{.toolbar{display:none}.card{break-inside:avoid;box-shadow:none}}
 </style>
 </head>
@@ -165,6 +165,7 @@
       <span>データ更新：<b>2026年11月18日（水）</b></span>
       <span>閲覧日：<b id="metaToday">―</b></span>
       <span>対象：<b>60サイト＋情報サイト2件</b></span>
+      <span>RSS：<a href="feed.xml"><b>今週の新着展覧会（feed.xml）</b></a></span>
     </div>
     <div class="stats">
       <div class="stat"><div class="num" id="statTotal">–</div><div class="lbl">掲載展覧会（終了分を除く）</div></div>
@@ -225,9 +226,6 @@
     </div>
   </details>
 
-  <footer class="page">
-    出典：各施設の公式サイト、ならびにアートマップ テクポ（tekupo.com）とTokyo Art Beatの愛媛県ページ（各カードのリンク先）。データ更新日は2026年11月18日（水）で、「開催中／まもなく開始」の振り分けは閲覧した日の日付で自動判定しています。会期表記は各サイトの表記をもとに西暦で統一し、概要は各サイトの掲載内容に基づきます。常設展示のみの案内は除いています。
-  </footer>
 </div>
 
 <script>
