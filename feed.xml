@@ -2,15 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>愛媛の美術館・ギャラリーなど 展覧会情報</title>
-    <link>https://kojp.github.io/ehime-exhibitions/</link>
-    <atom:link href="https://kojp.github.io/ehime-exhibitions/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>https://ehime-art.pages.dev/</link>
+    <atom:link href="https://ehime-art.pages.dev/feed.xml" rel="self" type="application/rss+xml"/>
     <description>愛媛県内の美術館・ギャラリーなどの新着展覧会を、毎週月曜日のデータ更新に合わせてまとめて配信します。</description>
     <language>ja</language>
     <lastBuildDate>Wed, 18 Nov 2026 20:55:49 +0900</lastBuildDate>
     <item>
       <title>今週の新着展覧会（11月18日更新）</title>
-      <link>https://kojp.github.io/ehime-exhibitions/</link>
-      <guid isPermaLink="false">https://kojp.github.io/ehime-exhibitions/feed.xml#2026-11-18</guid>
+      <link>https://ehime-art.pages.dev/</link>
+      <guid isPermaLink="false">https://ehime-art.pages.dev/feed.xml#2026-11-18</guid>
       <pubDate>Wed, 18 Nov 2026 07:00:00 +0900</pubDate>
       <description><![CDATA[・<a href="https://www.ioki-memorialmuseum.com">五百亀記念館企画展「いおき記念館の拾四年～館蔵品＋学芸員イチ推し作品展～」（五百亀記念館、西条市、11月3日～2027年3月28日）</a><br>
 ・<a href="https://www.instagram.com/p/DfEJXwAkfGj/">白川三枝個展「Silent Echoes ― 音のカタチを探して ―」（森、今治市、11月14日～11月22日）</a><br>
