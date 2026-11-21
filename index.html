@@ -59,10 +59,26 @@
   @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
 
   .highlights{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
-  .highlights h2{font-family:"Noto Serif JP",serif;font-size:17px;margin:0 0 8px}
+  .highlights summary{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:"Noto Serif JP",serif;font-size:17px;font-weight:700;color:var(--ink);cursor:default;list-style:none;-webkit-tap-highlight-color:transparent}
+  .highlights summary::-webkit-details-marker{display:none}
+  .highlights summary .chev{font-size:13px;color:var(--aka);transition:transform .2s;flex-shrink:0}
+  .highlights[open ] summary .chev{transform:rotate(180deg)}
+  .highlights .highlights-body{margin-top:8px}
   .highlights ul{margin:0;padding-left:1.2em;color:var(--ink2);font-size:14px}
   .highlights li{margin:4px 0}
   .highlights b{color:var(--ink)}
+  /* PC：見どころは常時表示（折りたたみ不可、シェブロン非表示） */
+  @media (min-width:761px){
+    .highlights summary{pointer-events:none}
+    .highlights summary .chev{display:none}
+    .highlights .highlights-body{display:block !important}
+  }
+  /* スマホ：見どころは「このページについて」と同じ折りたたみ（タップするまで開かない） */
+  @media (max-width:760px){
+    .highlights summary{cursor:pointer;min-height:44px}
+    .highlights summary:focus-visible{outline:2px solid var(--aka);outline-offset:4px;border-radius:4px}
+  }
+  @media (prefers-reduced-motion: reduce){.highlights summary .chev{transition:none}}
 
   /* ---------- toolbar ---------- */
   .toolbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);padding:14px 0 12px;margin-top:26px;border-bottom:1px solid var(--line)}
@@ -79,9 +95,9 @@
   .result-line{margin-top:10px;font-size:13px;color:var(--ink3)}
   .result-line b{color:var(--ink)}
   .filter-toggle{display:none}
-  /* スマホ：絞り込みは折りたたみ、スティッキーに残るのは検索行だけにする */
+  /* スマホ：絞り込みは固定せず通常のスクロールに任せ、初期状態で開いておく */
   @media (max-width:760px){
-    .toolbar{padding:10px 0}
+    .toolbar{position:static;padding:10px 0}
     .search{flex:1 1 130px}
     .filter-toggle{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line2);color:var(--ink);font:inherit;font-size:13.5px;font-weight:700;padding:0 14px;border-radius:999px;cursor:pointer;min-height:44px;white-space:nowrap;flex-shrink:0}
     .filter-toggle .chev{font-size:11px;transition:transform .2s}
@@ -179,8 +195,9 @@
       <div class="stat"><div class="num" id="statEnding">–</div><div class="lbl">まもなく終了</div></div>
       <div class="stat"><div class="num" id="statSoon">–</div><div class="lbl">7日以内に開幕</div></div>
     </div>
-    <div class="highlights">
-      <h2>この週の見どころ（11月18日のデータ更新時点）</h2>
+    <details class="highlights" id="highlights" open>
+      <summary>この週の見どころ（11月18日のデータ更新時点）<span class="chev" aria-hidden="true">▾</span></summary>
+      <div class="highlights-body">
       <ul>
 <li><b>11月16日（月）開幕</b>：おやまのアトリエキズナで水色じかん個展 〜卒展〜、ギャラリーブロッサムで【11月展】芸術の秋 美への招待 2026が始まります。</li>
 <li><b>11月18日（水）からは</b>：愛媛県美術館の須山楓写真展、佐伯記念館の子どもの書道展、IYO夢みらい館の第4回いよ美術会展が始まります。19日（木）にはリブ・アートの合田史彦作品展、20日（金）にはgallery かけらの【縁起物】展が開幕します。</li>
@@ -188,16 +205,17 @@
 <li><b>まもなく終了に注意</b>：リブ・アートの「WE ARE ART LOVERS 展」と「8ニン十イロ 展」は11月17日（火）まで、河野甲展は11月19日（木）まで。県展の新居浜・今治移動展、『猫の名は』ふたり展などは11月23日（月・祝）までです。今治市の「森」で開催中の白川三枝個展「Silent Echoes ― 音のカタチを探して ―」は11月22日（日）までです。</li>
 <li><b>12月5日（土）は開幕ラッシュ</b>：あかがねミュージアムの木梨憲武展、erimakiの坂本千明原画展、朝倉の癒しのあかり展、セキ美術館の冬の所蔵作品展、玉川近代美術館の再開と今治ミュージアムアートフェス、ギャラリーラボの大西雅文展が始まります。</li>
 </ul>
-    </div>
+      </div>
+    </details>
   </header>
 
-  <div class="toolbar" role="search">
+  <div class="toolbar filters-open" role="search">
     <div class="row">
       <label class="search">
         <span aria-hidden="true">⌕</span>
         <input id="q" type="search" placeholder="展覧会名・施設名・キーワードで検索" aria-label="検索">
       </label>
-      <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="statusSeg areaChips">絞り込み<span class="chev" aria-hidden="true">▾</span></button>
+      <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="true" aria-controls="statusSeg areaChips">絞り込み<span class="chev" aria-hidden="true">▾</span></button>
       <div class="seg" id="statusSeg" role="group" aria-label="状態で絞り込み">
         <button type="button" data-status="all" aria-pressed="true">すべて</button>
         <button type="button" data-status="live" aria-pressed="false">開催中</button>
@@ -447,22 +465,37 @@ filterToggleEl.addEventListener("click",function(){
   var open=toolbarEl.classList.toggle("filters-open");
   filterToggleEl.setAttribute("aria-expanded",open?"true":"false");
 });
-function closeFiltersMobile(){
-  if(window.matchMedia("(max-width:760px)").matches){
-    toolbarEl.classList.remove("filters-open");
-    filterToggleEl.setAttribute("aria-expanded","false");
-  }
-}
+/* スマホでは絞り込みを開いたままにする（選択しても閉じない） */
+function closeFiltersMobile(){ /* 開いたままにするため何もしない */ }
 document.getElementById("statusSeg").addEventListener("click",function(e){
   if(e.target.tagName!=="BUTTON")return;
   this.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed","false");});
-  e.target.setAttribute("aria-pressed","true"); render(); closeFiltersMobile();
+  e.target.setAttribute("aria-pressed","true"); render();
 });
 document.getElementById("areaChips").addEventListener("click",function(e){
   if(e.target.tagName!=="BUTTON")return;
   this.querySelectorAll(".chip").forEach(function(b){b.setAttribute("aria-pressed","false");});
-  e.target.setAttribute("aria-pressed","true"); render(); closeFiltersMobile();
+  e.target.setAttribute("aria-pressed","true"); render();
 });
+/* レスポンシブ初期状態：スマホでは絞り込みを開き、見どころは閉じる／PCでは見どころを開く */
+var highlightsEl=document.getElementById("highlights");
+var wasMobile=null;
+function syncResponsiveDefaults(){
+  var isMobile=window.matchMedia("(max-width:760px)").matches;
+  if(isMobile){
+    /* 初回（またはPC→スマホへの切替時）は絞り込みを開いた状態にする */
+    if(wasMobile!==true){
+      toolbarEl.classList.add("filters-open");
+      filterToggleEl.setAttribute("aria-expanded","true");
+      if(highlightsEl) highlightsEl.removeAttribute("open");
+    }
+  }else{
+    if(highlightsEl) highlightsEl.setAttribute("open","");
+  }
+  wasMobile=isMobile;
+}
+syncResponsiveDefaults();
+window.addEventListener("resize",syncResponsiveDefaults);
 (function(){
   var d=new Date(TODAY+"T00:00:00");
   var label=fmtDate(TODAY)+"（"+DOW[d.getDay()]+"）";
