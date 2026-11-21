@@ -59,7 +59,7 @@
   @media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
 
   .highlights{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
-  .highlights summary{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:"Noto Serif JP",serif;font-size:17px;font-weight:700;color:var(--ink);cursor:default;list-style:none;-webkit-tap-highlight-color:transparent}
+  .highlights summary{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:"Noto Serif JP",serif;font-size:17px;font-weight:700;color:var(--ink);cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
   .highlights summary::-webkit-details-marker{display:none}
   .highlights summary .chev{font-size:13px;color:var(--aka);transition:transform .2s;flex-shrink:0}
   .highlights[open ] summary .chev{transform:rotate(180deg)}
@@ -67,17 +67,9 @@
   .highlights ul{margin:0;padding-left:1.2em;color:var(--ink2);font-size:14px}
   .highlights li{margin:4px 0}
   .highlights b{color:var(--ink)}
-  /* PC：見どころは常時表示（折りたたみ不可、シェブロン非表示） */
-  @media (min-width:761px){
-    .highlights summary{pointer-events:none}
-    .highlights summary .chev{display:none}
-    .highlights .highlights-body{display:block !important}
-  }
-  /* スマホ：見どころは「このページについて」と同じ折りたたみ（タップするまで開かない） */
-  @media (max-width:760px){
-    .highlights summary{cursor:pointer;min-height:44px}
-    .highlights summary:focus-visible{outline:2px solid var(--aka);outline-offset:4px;border-radius:4px}
-  }
+  /* 見どころは全画面幅で「このページについて」と同じ折りたたみ（タップ／クリックするまで開かない） */
+  .highlights summary{cursor:pointer;min-height:44px}
+  .highlights summary:focus-visible{outline:2px solid var(--aka);outline-offset:4px;border-radius:4px}
   @media (prefers-reduced-motion: reduce){.highlights summary .chev{transition:none}}
 
   /* ---------- toolbar ---------- */
@@ -203,7 +195,7 @@
       <div class="stat"><div class="num" id="statEnding">–</div><div class="lbl">まもなく終了</div></div>
       <div class="stat"><div class="num" id="statSoon">–</div><div class="lbl">7日以内に開幕</div></div>
     </div>
-    <details class="highlights" id="highlights" open>
+    <details class="highlights" id="highlights">
       <summary>この週の見どころ（11月18日のデータ更新時点）<span class="chev" aria-hidden="true">▾</span></summary>
       <div class="highlights-body">
       <ul>
@@ -487,8 +479,7 @@ document.getElementById("areaChips").addEventListener("click",function(e){
   this.querySelectorAll(".chip").forEach(function(b){b.setAttribute("aria-pressed","false");});
   e.target.setAttribute("aria-pressed","true"); render();
 });
-/* レスポンシブ初期状態：スマホでは絞り込みを開き、見どころは閉じる／PCでは見どころを開く */
-var highlightsEl=document.getElementById("highlights");
+/* レスポンシブ初期状態：スマホでは絞り込みを開く／見どころは全画面幅で閉じた状態が初期値（HTML側で open なし、ここでは開閉に触れない） */
 var wasMobile=null;
 function syncResponsiveDefaults(){
   var isMobile=window.matchMedia("(max-width:760px)").matches;
@@ -497,10 +488,7 @@ function syncResponsiveDefaults(){
     if(wasMobile!==true){
       toolbarEl.classList.add("filters-open");
       filterToggleEl.setAttribute("aria-expanded","true");
-      if(highlightsEl) highlightsEl.removeAttribute("open");
     }
-  }else{
-    if(highlightsEl) highlightsEl.setAttribute("open","");
   }
   wasMobile=isMobile;
 }
