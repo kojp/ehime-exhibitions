@@ -172,7 +172,15 @@
   .ad-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:flex-start}
   .ad-row a{line-height:0;flex:0 0 auto}
   @media (max-width:760px){.ad-block{display:none}}
-  @media print{.toolbar{display:none}.card{break-inside:avoid;box-shadow:none}.ad-block{display:none}}
+  @media print{.toolbar{display:none}.card{break-inside:avoid;box-shadow:none}.ad-block{display:none}.to-top{display:none}}
+
+  /* ---------- back to top ---------- */
+  .to-top{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:30;width:48px;height:48px;border-radius:50%;border:1px solid var(--line2);background:var(--ink);color:var(--paper);font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;-webkit-tap-highlight-color:transparent}
+  .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+  .to-top:hover{opacity:.85}
+  .to-top.show:hover{opacity:.85}
+  .to-top:focus-visible{outline:2px solid var(--aka);outline-offset:3px}
+  @media (prefers-reduced-motion: reduce){.to-top{transition:none;transform:none}}
 </style>
 </head>
 <body>
@@ -262,6 +270,8 @@
   </section>
 
 </div>
+
+<button type="button" class="to-top" id="toTop" aria-label="ページの先頭へ戻る" title="先頭へ戻る">↑</button>
 
 <script>
 var DATA_UPDATE = "2026-11-18";
@@ -502,6 +512,17 @@ window.addEventListener("resize",syncResponsiveDefaults);
   document.getElementById("metaToday").textContent=label;
 })();
 render();
+/* 先頭へ戻るボタン：ある程度スクロールしたら右下に表示 */
+var toTopBtn=document.getElementById("toTop");
+function syncToTop(){
+  toTopBtn.classList.toggle("show",window.scrollY>600);
+}
+window.addEventListener("scroll",syncToTop,{passive:true});
+syncToTop();
+toTopBtn.addEventListener("click",function(){
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});
+});
 </script>
 <script data-goatcounter="https://kojp.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
